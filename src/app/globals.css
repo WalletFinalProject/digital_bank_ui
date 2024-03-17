@@ -3,6 +3,13 @@
   margin: 0;
   box-sizing: border-box;
 }
+:root {
+  --primary-color: #001948;
+  --secondary-color: #dfa408;
+  --terty-color: #cecece;
+  --black: #1f1f29;
+  --white: #f5f5fa;
+}
 body {
-  color: black !important;
+  color: var(--black) !important;
 }

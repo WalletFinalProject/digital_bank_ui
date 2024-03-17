@@ -4,13 +4,13 @@
   left: 0;
   width: 15vw;
   height: 100vh;
-  background: whitesmoke;
-  box-shadow: 1px 1px 5px #cecece;
+  background: var(--primary-color);
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 3vh;
   align-items: center;
+  color: var(--secondary-color);
 }
 .aside h1 {
   height: 10vh;
@@ -18,8 +18,9 @@
   flex-direction: row;
   align-items: center;
   padding-inline: 1vw;
-  font-family: cursive, sans-serif;
   font-size: 2rem;
+  background-color: var(--white);
+  width: 100%;
 }
 .link {
   height: 85vh;
@@ -41,7 +42,8 @@
   font-size: 1.2rem;
 }
 .link-items:hover {
-  background-color: #fefefe;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 .link-items {
   display: flex;
@@ -51,8 +53,9 @@
   height: 6vh;
   padding: 1vh 1vw;
   border-radius: 5px;
-  color: black;
+  color: var(--white);
   text-decoration: none;
+  font-size: 1rem;
 }
 .icon {
   font-size: 1.7rem;

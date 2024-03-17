@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={quicksand.className}>
         <Aside />
-        <Appbar name="test" />
+        <Appbar />
         {children}
       </body>
     </html>
