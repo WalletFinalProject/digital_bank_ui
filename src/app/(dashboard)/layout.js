@@ -1,4 +1,7 @@
 import { Quicksand } from "next/font/google";
+import "./globals.css";
+import Aside from "../../component/aside/Aside";
+import Appbar from "../../component/appbar/Appbar";
 const quicksand = Quicksand({ subsets: ["latin"] });
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -10,8 +13,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={quicksand.className}>{children}</body>
-    </html>
+    <div>
+      <Aside />
+      <Appbar />
+      <div className="children">{children}</div>
+    </div>
   );
 }

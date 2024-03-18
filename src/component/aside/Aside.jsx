@@ -43,7 +43,7 @@ function Aside() {
             <FontAwesomeIcon icon={faGear} className="icon" />
             Settings
           </Link>
-          <Link href="login" className="link-items">
+          <Link href="/login" className="link-items">
             <FontAwesomeIcon icon={faRightFromBracket} className="icon" />
             Log out
           </Link>
