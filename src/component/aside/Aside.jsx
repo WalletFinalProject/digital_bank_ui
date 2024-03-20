@@ -9,12 +9,16 @@ import {
   faHandHoldingDollar,
   faGear,
   faRightFromBracket,
+  faBuildingColumns,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 function Aside() {
   return (
     <section className="aside">
-      <h1>U-bank</h1>
+      <div className="aside-header">
+        <FontAwesomeIcon icon={faBuildingColumns} className="icon" />
+        <h1>U-bank</h1>
+      </div>
       <div className="link">
         <div className="items">
           <Link href="/dashboard" className="link-items">

@@ -1,11 +1,14 @@
 import React from "react";
 import "./Appbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
 function Appbar() {
   return (
     <div className="app_bar">
-      <span>Dashboard</span>
+      <div className="component_name">
+        <FontAwesomeIcon icon={faBars} className="bars" />
+        <span>Dashboard</span>
+      </div>
       <div className="search-content">
         <input
           type="search"

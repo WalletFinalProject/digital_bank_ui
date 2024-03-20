@@ -13,35 +13,16 @@
 body {
   color: var(--black) !important;
   overflow: hidden;
+  background-color: var(--white);
 }
 
 .children {
-  background: red;
   position: relative;
   left: 16.5vw;
   top: 12vh;
   height: 86vh;
   width: 82vw;
-  background-color: var(--white);
   border-radius: 10px;
   padding: 1vh 1vw;
-}
-.children::before,
-.children::after {
-  content: " ";
-  position: absolute;
-  width: 25vw;
-  height: 25vw;
-  background-color: var(--secondary-color);
-  rotate: 25deg;
-  z-index: -1 !important;
-  box-shadow: 2px 2px 10px grey;
-}
-.children::before {
-  top: -10vh;
-  left: -5vw;
-}
-.children::after {
-  bottom: -10vh;
-  right: -5vw;
+  background-color: white;
 }
