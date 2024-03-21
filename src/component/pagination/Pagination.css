@@ -1,0 +1,22 @@
+.pagination {
+  border-top: 1px solid #cecece;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vh 1vw;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5vw;
+  cursor: pointer;
+}
+.chevron {
+  font-size: 0.7rem;
+}
