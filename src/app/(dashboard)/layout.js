@@ -5,6 +5,7 @@ import Appbar from "../../component/appbar/Appbar";
 const quicksand = Quicksand({ subsets: ["latin"] });
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { Providers } from "../Provider";
 config.autoAddCss = false;
 export const metadata = {
   title: "U-bank Digital",
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
     <div>
       <Aside />
       <Appbar />
-      <div className="children">{children}</div>
+      <div className="children">
+        <Providers>{children}</Providers>
+      </div>
     </div>
   );
 }
