@@ -23,6 +23,7 @@ import {
   Button,
   Box,
 } from "@chakra-ui/react";
+import List from "@/component/list/List";
 function Accounts() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -33,6 +34,19 @@ function Accounts() {
           <FontAwesomeIcon icon={faAdd} className="add-icon" />
           <p>Add</p>
         </button>
+      </div>
+      <div className="account-list-content">
+        <div className="list-header">
+          <p>Id account</p>
+          <p>Name</p>
+          <p>Amount</p>
+          <p>Creation date</p>
+          <p>Status</p>
+          <p></p>
+        </div>
+        <div className="list-content">
+          <List />
+        </div>
       </div>
       <Pagination />
       <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>

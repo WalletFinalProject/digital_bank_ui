@@ -1,0 +1,37 @@
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1vw;
+  padding: 1.3vh 1vw;
+  border-bottom: 0.5px solid var(--terty-color);
+}
+.list p:nth-child(1) {
+  flex-basis: 15%;
+}
+.list p:nth-child(2),
+.list p:nth-child(3) {
+  flex-basis: 20%;
+}
+.list p:nth-child(4),
+.list p:nth-child(5) {
+  flex-basis: 19%;
+}
+.list p:nth-child(6) {
+  flex-basis: 7%;
+}
+.button-action {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5vw;
+}
+.action-button {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+.completed {
+  color: var(--white);
+}

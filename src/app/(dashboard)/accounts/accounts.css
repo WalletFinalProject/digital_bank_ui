@@ -29,9 +29,37 @@
 .add-icon {
   font-size: 1.7rem;
 }
+.account-list-content {
+  width: 100%;
+  overflow-y: hidden;
+  height: 68vh;
+}
+.list-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-inline: 1vw;
+  background-color: whitesmoke;
+  height: 10%;
+  gap: 1vw;
+}
+.list-header p:nth-child(1) {
+  flex-basis: 15%;
+}
+.list-header p:nth-child(2),
+.list-header p:nth-child(3) {
+  flex-basis: 20%;
+}
+.list-header p:nth-child(4),
+.list-header p:nth-child(5) {
+  flex-basis: 19%;
+}
+.list-header p:nth-child(6) {
+  flex-basis: 7%;
+}
 .list-content {
   width: 100%;
-  border: 1px solid;
-  margin-block: 1vh;
+  height: 90%;
   overflow-y: scroll;
 }
