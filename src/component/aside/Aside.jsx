@@ -25,10 +25,6 @@ function Aside() {
             <FontAwesomeIcon icon={faHouse} className="icon" />
             Dashboard
           </Link>
-          <Link href="/accounts" className="link-items">
-            <FontAwesomeIcon icon={faWallet} className="icon" />
-            Accounts
-          </Link>
           <Link href="/currency" className="link-items">
             <FontAwesomeIcon icon={faMoneyCheck} className="icon" />
             Currency
