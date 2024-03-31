@@ -1,3 +1,5 @@
+"use client";
+import { useQuery } from "@chakra-ui/react";
 import {
   Avatar,
   AvatarGroup,
@@ -17,10 +19,32 @@ import {
   faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./accounts.css";
 import Image from "next/image";
+import { fetchAvatars } from "../api/api";
 function Accounts() {
+  const [avatars, setAvatars] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAvatars();
+      console.log(data);
+      setAvatars(data);
+    };
+    fetchData();
+  }, []);
+  const [formData, setFormData] = useState({
+    lastName: "",
+    firstName: "",
+    birthDate: "",
+    amount: "",
+    allowCredit: false,
+  });
+  const [allowCredit, setAllowCredit] = useState(false);
+  const handleCreate = () => {
+    console.log({ ...formData, allowCredit });
+  };
   return (
     <Box
       sx={{
@@ -59,7 +83,7 @@ function Accounts() {
           />
           <Box
             sx={{
-              width: "90%",
+              width: "fit-content",
               height: "10vh",
               background: "#434e86",
               display: "flex",
@@ -70,9 +94,9 @@ function Accounts() {
             }}
           >
             <AvatarGroup max={6}>
-              <Avatar name="john Doe" />
-              <Avatar name="Manuellah" />
-              <Avatar name="john Doe" />
+              {avatars.map((avatar) => (
+                <Avatar key={avatar.idAccount} name={avatar.clientName} />
+              ))}
             </AvatarGroup>
           </Box>
         </Box>
@@ -135,6 +159,9 @@ function Accounts() {
                 type="text"
                 placeholder="Last name"
                 sx={{ width: "90%", marginLeft: "3vw" }}
+                onChange={(e) =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
               />
             </InputGroup>
             <InputGroup>
@@ -145,6 +172,9 @@ function Accounts() {
                 type="text"
                 placeholder="First name"
                 sx={{ width: "90%", marginLeft: "3vw" }}
+                onChange={(e) =>
+                  setFormData({ ...formData, firstName: e.target.value })
+                }
               />
             </InputGroup>
             <InputGroup>
@@ -155,6 +185,9 @@ function Accounts() {
                 type="date"
                 sx={{ width: "90%", marginLeft: "3vw" }}
                 required
+                onChange={(e) =>
+                  setFormData({ ...formData, birthDate: e.target.value })
+                }
               />
             </InputGroup>
             <InputGroup>
@@ -164,13 +197,23 @@ function Accounts() {
               <Input
                 placeholder="Amount"
                 sx={{ width: "90%", marginLeft: "3vw" }}
+                onChange={(e) =>
+                  setFormData({ ...formData, amount: e.target.value })
+                }
               />
             </InputGroup>
             <FormControl>
               <FormLabel>Is allow credit</FormLabel>
-              <Switch size="md" className="switch" />
+              <Switch
+                size="md"
+                className="switch"
+                isChecked={allowCredit}
+                onChange={(e) => setAllowCredit(e.target.checked)}
+              />
             </FormControl>
-            <Button colorScheme="linkedin">Create</Button>
+            <Button colorScheme="linkedin" onClick={handleCreate}>
+              Create
+            </Button>
           </Box>
         </Box>
       </Box>
