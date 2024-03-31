@@ -1,5 +1,4 @@
 "use client";
-import { useQuery } from "@chakra-ui/react";
 import {
   Avatar,
   AvatarGroup,
@@ -14,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import {
   faCakeCandles,
+  faCircleCheck,
   faCircleUser,
   faDollarSign,
   faUserTie,
@@ -23,28 +23,56 @@ import React, { useEffect, useState } from "react";
 import "./accounts.css";
 import Image from "next/image";
 import { fetchAvatars } from "../api/api";
+import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 function Accounts() {
+  const router = useRouter();
   const [avatars, setAvatars] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchAvatars();
-      console.log(data);
       setAvatars(data);
     };
     fetchData();
   }, []);
   const [formData, setFormData] = useState({
-    lastName: "",
-    firstName: "",
+    authorizeCredits: false,
+    clientName: "",
+    clientFirstname: "",
     birthDate: "",
-    amount: "",
-    allowCredit: false,
+    netMonthlySalary: "",
+    balance: 0,
+    creditAmount: 0,
   });
-  const [allowCredit, setAllowCredit] = useState(false);
-  const handleCreate = () => {
-    console.log({ ...formData, allowCredit });
+  const [isAccountCreated, setIsAccountCreated] = useState(false);
+  const doCreate = async () => {
+    const idAccount = uuidv4();
+    try {
+      const response = await fetch("http://localhost:4000/account", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          idAccount,
+          creationDate: new Date().toISOString().split("T")[0],
+          updateDate: new Date().toISOString().split("T")[0],
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setIsAccountCreated(true);
+        setTimeout(() => {
+          setIsAccountCreated(false);
+          router.push(idAccount + "/dashboard");
+        }, 5000);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error try again");
+    }
   };
+
   return (
     <Box
       sx={{
@@ -95,7 +123,11 @@ function Accounts() {
           >
             <AvatarGroup max={6}>
               {avatars.map((avatar) => (
-                <Avatar key={avatar.idAccount} name={avatar.clientName} />
+                <Avatar
+                  key={avatar.idAccount}
+                  name={avatar.clientName}
+                  onClick={() => router.push(avatar.idAccount + "/dashboard")}
+                />
               ))}
             </AvatarGroup>
           </Box>
@@ -158,9 +190,10 @@ function Accounts() {
               <Input
                 type="text"
                 placeholder="Last name"
+                required
                 sx={{ width: "90%", marginLeft: "3vw" }}
                 onChange={(e) =>
-                  setFormData({ ...formData, lastName: e.target.value })
+                  setFormData({ ...formData, clientName: e.target.value })
                 }
               />
             </InputGroup>
@@ -171,9 +204,13 @@ function Accounts() {
               <Input
                 type="text"
                 placeholder="First name"
+                required
                 sx={{ width: "90%", marginLeft: "3vw" }}
                 onChange={(e) =>
-                  setFormData({ ...formData, firstName: e.target.value })
+                  setFormData((prev) => ({
+                    ...prev,
+                    clientFirstname: e.target.value,
+                  }))
                 }
               />
             </InputGroup>
@@ -184,7 +221,6 @@ function Accounts() {
               <Input
                 type="date"
                 sx={{ width: "90%", marginLeft: "3vw" }}
-                required
                 onChange={(e) =>
                   setFormData({ ...formData, birthDate: e.target.value })
                 }
@@ -195,10 +231,11 @@ function Accounts() {
                 <FontAwesomeIcon icon={faDollarSign} />
               </InputLeftElement>
               <Input
-                placeholder="Amount"
+                placeholder="netMonthlySalary"
+                required
                 sx={{ width: "90%", marginLeft: "3vw" }}
                 onChange={(e) =>
-                  setFormData({ ...formData, amount: e.target.value })
+                  setFormData({ ...formData, netMonthlySalary: e.target.value })
                 }
               />
             </InputGroup>
@@ -207,16 +244,43 @@ function Accounts() {
               <Switch
                 size="md"
                 className="switch"
-                isChecked={allowCredit}
-                onChange={(e) => setAllowCredit(e.target.checked)}
+                isChecked={formData.authorizeCredits}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    authorizeCredits: e.target.checked,
+                  }))
+                }
               />
             </FormControl>
-            <Button colorScheme="linkedin" onClick={handleCreate}>
+            <Button colorScheme="linkedin" onClick={doCreate}>
               Create
             </Button>
           </Box>
         </Box>
       </Box>
+      {isAccountCreated && (
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: "2vh",
+            right: "2vw",
+            height: "5vh",
+            width: "10vw",
+            color: "green",
+            display: "flex",
+            alignItems: "center",
+            border: "2px solid green",
+            gap: "10px",
+            justifyContent: "center",
+            padding: "1vh 1vw",
+            background: "whitesmoke",
+          }}
+        >
+          <FontAwesomeIcon icon={faCircleCheck} />
+          <p>Success</p>
+        </Box>
+      )}
     </Box>
   );
 }

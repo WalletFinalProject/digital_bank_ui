@@ -1,8 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import "./Appbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faBars } from "@fortawesome/free-solid-svg-icons";
+import { Avatar } from "@chakra-ui/react";
+import { useParams, useRouter } from "next/navigation";
+import { getAccountbyId } from "@/app/api/getByIdAccount";
 function Appbar() {
+  const router = useRouter();
+  const { userId } = useParams();
+  const [account, setAccount] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getAccountbyId(userId);
+      setAccount(data[0]);
+    };
+    fetchData();
+  }, [userId]);
+
   return (
     <div className="app_bar">
       <div className="component_name">
@@ -21,11 +36,11 @@ function Appbar() {
       </div>
       <div className="user-info">
         <div className="avatar">
-          <img src="" alt="" />
+          <Avatar name={account.clientFirstname} />
         </div>
         <div className="info">
-          <h4>John Doe</h4>
-          <p>Admin</p>
+          <h4>{account.clientName}</h4>
+          <p>{account.clientFirstname}</p>
         </div>
       </div>
     </div>

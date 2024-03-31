@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import "./Aside.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +13,10 @@ import {
   faBuildingColumns,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 function Aside() {
+  const { userId } = useParams();
+  console.log(userId);
   return (
     <section className="aside">
       <div className="aside-header">
@@ -21,19 +25,19 @@ function Aside() {
       </div>
       <div className="link">
         <div className="items">
-          <Link href="/dashboard" className="link-items">
+          <Link href={"/" + userId + "/dashboard"} className="link-items">
             <FontAwesomeIcon icon={faHouse} className="icon" />
             Dashboard
           </Link>
-          <Link href="/currency" className="link-items">
+          <Link href={"/" + userId + "/currency"} className="link-items">
             <FontAwesomeIcon icon={faMoneyCheck} className="icon" />
             Currency
           </Link>
-          <Link href="/transaction" className="link-items">
+          <Link href={"/" + userId + "/transaction"} className="link-items">
             <FontAwesomeIcon icon={faMoneyBillTransfer} className="icon" />
             Transaction
           </Link>
-          <Link href="/balance" className="link-items">
+          <Link href={"/" + userId + "/balance"} className="link-items">
             <FontAwesomeIcon icon={faHandHoldingDollar} className="icon" />
             Balance
           </Link>
