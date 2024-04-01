@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
@@ -25,8 +25,16 @@ import {
   Select,
 } from "@chakra-ui/react";
 import List from "@/component/list/List";
+import { useParams } from "next/navigation";
 function Transactions() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [transactions, setTransactions] = useState([]);
+  const { userId } = useParams();
+  useEffect(() => {
+    fetch("http://localhost:4000/transaction/account/" + userId)
+      .then((response) => response.json())
+      .then((data) => setTransactions(data));
+  }, [userId]);
   return (
     <div>
       <div className="transactions-header">
@@ -38,15 +46,17 @@ function Transactions() {
       </div>
       <div className="transaction-list-content">
         <div className="list-header">
-          <p>Id account</p>
-          <p>Name</p>
+          <p>Id transaction</p>
+          <p>label</p>
           <p>Amount</p>
           <p>Creation date</p>
-          <p>Status</p>
+          <p>type</p>
           <p></p>
         </div>
         <div className="list-content">
-          <List />
+          {transactions.map((transaction) => (
+            <List key={transaction.id} transaction={transaction} />
+          ))}
         </div>
       </div>
       <Pagination />

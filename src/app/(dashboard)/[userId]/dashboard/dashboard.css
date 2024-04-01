@@ -28,3 +28,33 @@
 .icon {
   font-size: 2rem;
 }
+.transaction-list-content {
+  width: 100%;
+  overflow-y: hidden;
+  /* height: 68vh; */
+}
+.list-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-inline: 1vw;
+  background-color: whitesmoke;
+  height: 7vh;
+  gap: 1vw;
+  margin-top: 2vh;
+}
+.list-header p:nth-child(1) {
+  flex-basis: 15%;
+}
+.list-header p:nth-child(2),
+.list-header p:nth-child(3) {
+  flex-basis: 20%;
+}
+.list-header p:nth-child(4),
+.list-header p:nth-child(5) {
+  flex-basis: 19%;
+}
+.list-header p:nth-child(6) {
+  flex-basis: 7%;
+}

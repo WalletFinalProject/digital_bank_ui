@@ -16,7 +16,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 function Aside() {
   const { userId } = useParams();
-  console.log(userId);
   return (
     <section className="aside">
       <div className="aside-header">
@@ -31,7 +30,7 @@ function Aside() {
           </Link>
           <Link href={"/" + userId + "/currency"} className="link-items">
             <FontAwesomeIcon icon={faMoneyCheck} className="icon" />
-            Currency
+            Category
           </Link>
           <Link href={"/" + userId + "/transaction"} className="link-items">
             <FontAwesomeIcon icon={faMoneyBillTransfer} className="icon" />
