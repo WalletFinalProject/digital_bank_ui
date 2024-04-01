@@ -6,6 +6,7 @@ import {
   faCircleDollarToSlot,
   faCircleUser,
   faCalendarAlt,
+  faFileAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import "./transaction.css";
 import Pagination from "@/component/pagination/Pagination";
@@ -26,10 +27,21 @@ import {
 } from "@chakra-ui/react";
 import List from "@/component/list/List";
 import { useParams } from "next/navigation";
+import { fetchAvatars } from "@/app/api/api";
 function Transactions() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [transactions, setTransactions] = useState([]);
   const { userId } = useParams();
+  const [avatars, setAvatars] = useState([]);
+// fetch  all accounts
+
+useEffect(() => {
+  const fetchData = async () => {
+    const data = await fetchAvatars();
+    setAvatars(data);
+  };
+  fetchData();
+}, []);
   useEffect(() => {
     fetch("http://localhost:4000/transaction/account/" + userId)
       .then((response) => response.json())
@@ -74,9 +86,14 @@ function Transactions() {
             }}
           >
             <Select placeholder="Select accounts">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+            {avatars.map((avatar) => (
+                <option 
+                  key={avatar.idAccount}
+                  value={avatar.clientName}
+                >
+                  {avatar.clientName}
+                  </option>
+              ))}
             </Select>
 
             <InputGroup>
@@ -90,6 +107,16 @@ function Transactions() {
                 <FontAwesomeIcon icon={faCircleDollarToSlot} />
               </InputLeftElement>
               <Input placeholder="Amount" />
+            </InputGroup>
+            <Select placeholder="types transaction">
+              <option value="option1">credit</option>
+              <option value="option2">debit</option>
+            </Select>
+            <InputGroup>
+             <InputLeftElement>
+             <FontAwesomeIcon icon={faFileAlt}/>
+             </InputLeftElement>
+             <Input placeholder="transaction label"/>
             </InputGroup>
             <Box sx={{ display: "flex", flexDirection: "row", gap: "1vw" }}>
               <Button colorScheme="linkedin" w="10vw">

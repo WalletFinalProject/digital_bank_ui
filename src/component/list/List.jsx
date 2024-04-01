@@ -3,6 +3,20 @@ import "./list.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@chakra-ui/react";
+
+const handleDelete = async (transactionId) => {
+  try {
+     const response = await fetch(`http://localhost:4000/transaction/${transactionId}`, {
+       method: 'DELETE',
+     });
+ 
+     if (!response.ok) {
+       throw new Error('Erreur lors de la suppression de la transaction');
+     }
+  } catch (error) {
+     console.error('Erreur lors de la suppression de la transaction:', error);
+  }
+ };
 export default function List({ transaction }) {
   const date = new Date(transaction.transactionDate);
   const formattedDate = date.toLocaleDateString();
@@ -25,7 +39,7 @@ export default function List({ transaction }) {
       </p>
       <div className="button-action">
         <FontAwesomeIcon icon={faEdit} className="action-button" />
-        <FontAwesomeIcon icon={faTrash} className="action-button" />
+        <FontAwesomeIcon icon={faTrash} className="action-button" onClick={() => handleDelete(transaction.idTransaction)} />
       </div>
     </div>
   );
